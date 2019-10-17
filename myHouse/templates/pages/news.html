@@ -1,0 +1,247 @@
+{% extends 'bases/home_base.html' %}
+
+{% block content %}
+
+	<!-- Page top section -->
+	{% for back in page_top %}
+    {% if forloop.counter == 4 %} 
+	<section class="page-top-section set-bg" data-setbg="{{ back.image_back.url }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="page-top-text text-white">
+						<h2>{{ back.nom }}</h2>
+						<p>{{ back.description }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hero-social-warp">
+			<div class="hero-social">
+				{% for socio in sociaux %} 
+				<a href=""><i class="{{ socio.icon }}"></i></a>
+    			{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% endif %}
+    {% endfor %}
+	<!-- Page top section end -->
+
+	<!-- Blog section-->
+	<section class="blog-section spad">
+		<div class="container">
+			<div class="justify-content-center">
+				<div class="post-content-area mb-50">
+				<div class="row ">
+					<div class="col-lg-8">
+						<div class="nav nav-tabs blog-categorise" id="myTab" role="tablist">
+							<a class="nav-link active" id="tab1" data-toggle="tab" href="#world-tab-1" role="tab" aria-controls="world-tab-1" aria-selected="true">All</a>
+							{% for item in categorieList %}
+                            {% if forloop.counter <= 5 %} 
+							<a class="nav-link" id="tab{{forloop.counter|add:'1'}}" data-toggle="tab" href="#world-tab-{{forloop.counter|add:'1'}}" role="tab" aria-controls="world-tab-2" aria-selected="false">{{ item.nom }}</a>
+							{% endif %}
+                            {% endfor %}
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<form class="blog-search" action="" method="GET">
+							{{ form }}
+							<input type="text" placeholder="Search in News Articles">
+							<button><img src="/static/img/search.png" alt=""></button>
+						</form>
+					</div>
+				</div>
+
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="world-tab-1" role="tabpanel" aria-labelledby="tab1">
+						{% for all_article in article_all %}
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="{{ all_article.image_accueil.url }}"></div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>{{ all_article.titre }}</h2>
+										<p>{{ all_article.description}}</p>
+										<a href="{% url 'detail' house.id %}" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+
+					{% for item in categorieList %}
+					<div class="tab-pane fade" id="world-tab-{{ forloop.counter|add:'1' }}" role="tabpanel" aria-labelledby="tab{{ forloop.counter|add:'1' }}">
+						{% for cate in item.categorie_article.all %}
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="{{ cate.image_accueil.url }}"></div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">{{ cate.date_upd|date:"M d Y" }}</div>
+										<div class="blog-note">Featured</div>
+										<h2>{{ cate.titre }}</h2>
+										<p>{{ cate.description }} </p>
+										<a href="{% url 'detail' house.id %}" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+                        {% endfor %}
+						<!-- <div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/2.jpg"></div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>Vivamus sagittis est quis bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringilla nibh. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/3.jpg">
+										<a href="" class="play-btn"><img src="/static/img/play-icon.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringil-la nibh. Cras finibus, orci at ultrices imperdiet, dui lectus lacinia nibh rcu eget tincidunt viverra. Nullam sagittis arcu nec vulputate cursus. Quisque venenatis ultrices vestibulum. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					{% endfor %}
+
+					<!-- <div class="tab-pane fade show" id="world-tab-3" role="tabpanel" aria-labelledby="tab3">
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/2.jpg"></div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>Vivamus sagittis est quis bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringilla nibh. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/3.jpg">
+										<a href="" class="play-btn"><img src="/static/img/play-icon.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringil-la nibh. Cras finibus, orci at ultrices imperdiet, dui lectus lacinia nibh rcu eget tincidunt viverra. Nullam sagittis arcu nec vulputate cursus. Quisque venenatis ultrices vestibulum. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade show" id="world-tab-4" role="tabpanel" aria-labelledby="tab4">
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/2.jpg"></div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>Vivamus sagittis est quis bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringilla nibh. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/3.jpg">
+										<a href="" class="play-btn"><img src="/static/img/play-icon.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringil-la nibh. Cras finibus, orci at ultrices imperdiet, dui lectus lacinia nibh rcu eget tincidunt viverra. Nullam sagittis arcu nec vulputate cursus. Quisque venenatis ultrices vestibulum. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade show" id="world-tab-5" role="tabpanel" aria-labelledby="tab5">
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/2.jpg"></div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>Vivamus sagittis est quis bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringilla nibh. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="blog-item">
+							<div class="row">
+								<div class="col-lg-4 col-md-5">
+									<div class="blog-thumb set-bg" data-setbg="/static/img/blog/3.jpg">
+										<a href="" class="play-btn"><img src="/static/img/play-icon.png" alt=""></a>
+									</div>
+								</div>
+								<div class="col-lg-8 col-md-7">
+									<div class="blog-content">
+										<div class="blog-date">25 January 2019</div>
+										<h2>bibendum volutpat Maecenas maximus tellus non nisl alec</h2>
+										<p>In vel dignissim tellus, a ultrices magna. Curabitur dignissim fringilla felis sed vulputate. Donec fringilla massa enim, ut sodales massa venenatis eget. Nunc et orci libero. Aliquam sodales felis nunc, vitae varius nunc tristique non. Sed id fringil-la nibh. Cras finibus, orci at ultrices imperdiet, dui lectus lacinia nibh rcu eget tincidunt viverra. Nullam sagittis arcu nec vulputate cursus. Quisque venenatis ultrices vestibulum. </p>
+										<a href="#" class="site-btn">READ MORE</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+					
+				<div class="text-center pt-4">
+					<a href="{% url 'views' %}" class="site-btn sb-solid">LOAD MORE</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Blog section end-->
+
+{% endblock %}

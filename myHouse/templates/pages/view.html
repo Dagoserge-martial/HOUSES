@@ -1,0 +1,83 @@
+{% extends 'bases/home_base.html' %}
+
+{% block content %}
+
+	<!-- Page top section -->
+	{% for back in page_top %}
+    {% if forloop.counter == 4 %} 
+	<section class="page-top-section set-bg" data-setbg="{{ back.image_back.url }}" style="height: 35%;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="page-top-text text-white">
+						<h2 style="margin-top: -130px;">Voir +</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endif %}
+    {% endfor %}
+	<!-- Page top section end -->
+
+	<!-- Blog section-->
+	<section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="blog-categorise">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <form class="blog-search">
+                        <input type="text" placeholder="Search in News Articles">
+                        <button><img src="img/search.png" alt=""></button>
+                    </form>
+                </div>
+            </div>
+            {% for all_article in article_all %}
+                <div class="blog-item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="blog-thumb set-bg" data-setbg="{{ all_article.image_accueil.url }}"></div>
+                        </div>
+                        <div class="col-lg-8 col-md-7">
+                            <div class="blog-content">
+                                <div class="blog-date">25 January 2019</div>
+                                <h2>{{ all_article.titre }}</h2>
+                                <p>{{ all_article.description}}</p>
+                                <a href="{% url 'detail' all_article.id %}" class="site-btn">READ MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <nav aria-label="Page navigation example" style="margin-left: 40%;">
+            <ul class="pagination">
+                {% if article_all.has_previous %}
+                <a class="page-link" href="?page={{ article_all.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                {% endif %}
+
+                {% for num in article_all.paginator.page_range %}
+                {% if article_all.number == num %}
+                <a class="page-link" href="?page={{ article_all.number }}">{{ article_all.number }}</a>
+                <span class="page-link" >Sur</span>
+                <a class="page-link" href="?page={{  article_all.paginator.num_pages }}">{{ article_all.paginator.num_pages }}</a>
+                {% endif %}
+                {% endfor %}
+                
+                {% if article_all.has_next %}
+                <a class="page-link" href="?page={{ article_all.paginator.num_pages }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif %}
+                
+            </ul>
+        </nav>
+    </section>
+        <!-- Blog section end-->
+
+{% endblock %}

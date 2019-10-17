@@ -1,0 +1,78 @@
+{% extends 'bases/home_base.html' %}
+
+{% block content %}
+
+	<!-- Page top section -->
+	{% for back in page_top %}
+    {% if forloop.counter == 5 %} 
+	<section class="page-top-section set-bg" data-setbg="{{ back.image_back.url }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="page-top-text text-white">
+						<h2>{{ back.nom }}</h2>
+						<p>{{ back.description }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hero-social-warp">
+			<div class="hero-social">
+				{% for socio in sociaux %} 
+				<a href=""><i class="{{ socio.icon }}"></i></a>
+    			{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% endif %}
+    {% endfor %}
+	<!-- Page top section end -->
+    
+	<!-- Contact section-->
+	<div id="app">
+		<section class="contact-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-7 offset-lg-5">
+						<div class="contact-info-box">
+							<h5 class="contact-title">${ test }</h5>
+							<div class="contact-info">
+								<div class="ci-item">
+									<img src="/static/img/icons/location.png" class="ci-icon" alt="">
+									<p>1385  Cedar Street, Black Rock, Arkansas, 72415</p>
+								</div>
+								<div class="ci-item">
+									<img src="/static/img/icons/headphone.png" class="ci-icon" alt="">
+									<p>870-878-6345<br>870-515-8691</p>
+								</div>
+							</div>
+							<h5 class="contact-title">QUICK HELLO</h5>
+							<form class="contact-form">
+								<div class="form-field">
+									<img src="/static/img/icons/profile.png" alt="" >
+									<input v-model="name" type="text" placeholder="Full Name">
+								</div>
+								<div class="form-field">
+									<img src="/static/img/icons/envelope.png" alt="" >
+									<input v-model="email" type="text" placeholder="Email Address">
+								</div>
+								<div class="form-field">
+									<img src="/static/img/icons/chat.png" alt="" >
+									<textarea v-model="message" placeholder="Hi ..."></textarea>
+								</div>
+								<button v-on:click="sendregister" class="site-btn">send</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Map -->
+			<div class="map">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d693971.6621063045!2d-90.0912505103206!3d36.108831972894045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d6b1b4c412b29f%3A0x9b2d8c4447fe1c96!2sCedar+St%2C+Black+Rock%2C+AR+72415%2C+USA!5e0!3m2!1sen!2sbd!4v1565787762946!5m2!1sen!2sbd" style="border:0"></iframe>
+			</div>
+		</section>
+	</div>
+	<!-- Contact section end-->
+
+{% endblock %}
+

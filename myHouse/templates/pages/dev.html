@@ -1,0 +1,85 @@
+{% extends 'bases/home_base.html' %}
+
+{% block content %}
+
+	<!-- Page top section -->
+	{% for back in page_top %}
+    {% if forloop.counter == 3 %} 
+	<section class="page-top-section set-bg" data-setbg="{{ back.image_back.url }}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5">
+					<div class="page-top-text text-white">
+						<h2>{{ back.nom }}</h2>
+						<p>{{ back.description }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hero-social-warp">
+			<div class="hero-social">
+				{% for socio in sociaux %} 
+				<a href=""><i class="{{ socio.icon }}"></i></a>
+    			{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% endif %}
+    {% endfor %}
+	<!-- Page top section end -->
+
+	<!-- Developments section-->
+	<section class="developments-section spad">
+		<div class="container">
+			<div class="row">
+				{% for hous in house %}
+				{% if forloop.counter  %} 
+				<div class="col-lg-4 col-md-6">
+					<div class="development-box">
+						<img src="{{ hous.image.url }}" alt="">
+						<div class="dev-text">
+							<h4>{{ hous.titre }}</h4>
+							<h5>{{ hous.position }}</h5>
+							<p>{{ hous.description }} </p>
+							<div class="dev-price">
+								<span>from</span>
+								<h4>-${{ hous.prix }}</h4>
+							</div>
+							{% if forloop.counter != 2 and forloop.counter != 3 %} 
+							<a href="" class="site-btn">MORE INFO</a>
+							{% endif %}
+							{% if forloop.counter == 3 %} 
+							<button class="site-btn sb-solid">SOLD OUT</button>
+							{% endif %}
+							{% if forloop.counter == 2 %} 
+							<button class="site-btn sb-fade">COMING SOON</button>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				{% endif %}
+    			{% endfor %}
+
+			</div>
+		</div>
+	</section>
+	<!-- Developments section end-->
+
+	<!-- Subscribe section -->
+	<section class="subscribe-section spad">
+		<div class="container">
+			<div class="subscribe-text text-center">
+				{% for apl in apel %}
+				<h2>{{ apl.titre }}</h2>
+				<p>{{ apl.description }} </p>
+				{% endfor %}
+			</div>
+			<form class="subscribe-form">
+				<input type="email" placeholder="Leave us your email address">
+				<button class="site-btn">SUBSCRIBE NOW</button>
+			</form>
+		</div>
+	</section>
+	<!-- Subscribe section end-->
+
+{% endblock %}
